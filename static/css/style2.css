@@ -1,0 +1,43 @@
+
+        /* Sidebar Styling */
+        .sidebar {
+            height: 100vh;
+            background-color: #343a40;
+            color: #fff;
+            padding: 15px;
+            position: fixed;
+        }
+
+        .sidebar .nav-link {
+            color: #adb5bd;
+            transition: color 0.3s;
+        }
+
+        .sidebar .nav-link:hover {
+            color: #fff;
+        }
+
+        .sidebar .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+        }
+
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
