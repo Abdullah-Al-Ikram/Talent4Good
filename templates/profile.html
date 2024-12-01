@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <h1 class="text-center text-dark mb-4">Profile</h1>
+
+    {% if user.volunteeruser %}
+    <!-- Volunteer Profile Section -->
+    <div class="bg-white p-4 rounded shadow-sm mb-4">
+        <h3>Volunteer Information</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row mb-4">
+                <div class="col-md-4 text-center">
+                    {% if user.volunteeruser.image %}
+                        <img src="{{ user.volunteeruser.image.url }}" class="profile-img mb-3" />
+                    {% else %}
+                        <div class="profile-img bg-secondary d-flex align-items-center justify-content-center mb-3">
+                            <span class="text-white">No Image</span>
+                        </div>
+                    {% endif %}
+                    <input type="file" name="image" class="form-control" />
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="name" value="{{ user.volunteeruser.name }}" class="form-control mb-3" placeholder="Name" />
+                    <input type="text" name="skills" value="{{ user.volunteeruser.skills }}" class="form-control mb-3" placeholder="Skills" />
+                    <input type="url" name="portfolio_link" value="{{ user.volunteeruser.portfolio_link }}" class="form-control mb-3" placeholder="Portfolio Link" />
+                    <textarea name="experience" class="form-control mb-3" placeholder="Experience">{{ user.volunteeruser.experience }}</textarea>
+                    <input type="checkbox" name="available" {% if user.volunteeruser.available %} checked {% endif %}> Available
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% elif user.organizationuser %}
+    <!-- Organization Profile Section -->
+    <div class="bg-white p-4 rounded shadow-sm mb-4">
+        <h3>Organization Information</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row mb-4">
+                <div class="col-md-4 text-center">
+                    {% if user.organizationuser.image %}
+                        <img src="{{ user.organizationuser.image.url }}" class="profile-img mb-3" />
+                    {% else %}
+                        <div class="profile-img bg-secondary d-flex align-items-center justify-content-center mb-3">
+                            <span class="text-white">No Logo</span>
+                        </div>
+                    {% endif %}
+                    <input type="file" name="image" class="form-control" />
+                </div>
+                <div class="col-md-8">
+                    <input type="text" name="organization_name" value="{{ user.organizationuser.organization_name }}" class="form-control mb-3" placeholder="Organization Name" />
+                    <textarea name="description" class="form-control mb-3" placeholder="Description">{{ user.organizationuser.description }}</textarea>
+                    <input type="url" name="website" value="{{ user.organizationuser.website }}" class="form-control mb-3" placeholder="Website" />
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% else %}
+    <p>You don't have a profile yet.</p>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

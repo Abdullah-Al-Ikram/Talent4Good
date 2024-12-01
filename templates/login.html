@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'images/rocket.png' %}" alt="rocket" class="rocket">
+        <div class="text">
+            <h1>LOGIN</h1>
+            <p>LANDING PAGE</p>
+        </div>
+        <form  class="form" method="post">
+            {% csrf_token %}
+            {% if messages %}
+        <div class="error-messages">
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+            <div class="animated-input">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button class="btn" type="submit">LOGIN</button>
+        </form>
+       <p class="account">Create Account as <a href="{% url 'volunteer-register' %}"> Volunteer ?</a> <a href="{% url 'organization-register' %}">Organization ?</a></p>
+    </div>
+</body>
+</html>

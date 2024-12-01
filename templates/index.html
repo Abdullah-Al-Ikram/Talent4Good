@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Talent4Good{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/style2.css' %}" rel="stylesheet" />
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="sidebar d-flex flex-column">
+            <h3 class="text-white">Dashboard</h3>
+            <ul class="nav flex-column">
+                {% if user.is_authenticated %}
+                    {% if user.role == "volunteer" %}
+                        <li class="nav-item">
+                            <a href="{% url 'projects:view-projects' %}" class="nav-link">View and Apply</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'projects:user_applied_projects' %}" class="nav-link">Track Activity</a>
+                        </li>
+                    {% elif user.role == "Organization" %}
+                        <li class="nav-item">
+                            <a href="{% url 'projects:add_project' %}" class="nav-link">Add New Project</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">View Application</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content w-100">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Talent4Good</a>
+                    <div class="d-flex align-items-center">
+                        {% if user.is_authenticated %}
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle d-flex align-items-center" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {% if user.volunteeruser and user.volunteeruser.image %}
+                                        <img src="{{ user.volunteeruser.image.url }}" class="profile-img" />
+                                    {% elif user.organizationuser and user.organizationuser.image %}
+                                        <img src="{{ user.organizationuser.image.url }}" class="profile-img" />
+                                    {% else %}
+                                        <span class="text-white">Profile</span>
+                                    {% endif %}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                                    <li><a class="dropdown-item" href="#">Role: {{ user.role }}</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-light">Login</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Page Content -->
+            <div class="container mt-4">
+                {% block content %}
+                    <div class="container py-5">
+                        <h1 class="text-center mb-4">My Submitted Projects</h1>
+
+                    {% if projects %}
+                        <div class="row">
+                            {% for project in projects %}
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        {% if project.image %}
+                                            <img src="{{ project.image.url }}" class="card-img-top" alt="Project Image">
+                                        {% endif %}
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ project.title }}</h5>
+                                            <p class="card-text">{{ project.description }}</p>
+                                            <p class="card-text"><strong>Skills Required:</strong> {{ project.skills }}</p>
+                                            <p class="card-text"><strong>Status:</strong> {{ project.status }}</p>
+                                            <p class="card-text"><strong>Duration:</strong> {{ project.duration }}</p>
+                                            <a href="{% url 'projects:view_applications' project_id=project.id %}" class="btn btn-primary">View Applications</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-center">You have not submitted any projects yet.</p>
+                    {% endif %}
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

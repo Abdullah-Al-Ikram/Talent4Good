@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Talent4Good</title>
+      
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700|Roboto:400,700&display=swap" rel="stylesheet"/>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="hero_area">
+      <!-- header section strats -->
+      <header class="header_section">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-11 offset-md-1 px-0">
+              <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                  <span>
+                    talent4good
+                  </span>
+                </a>
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <div
+                    class="d-flex ml-auto flex-column flex-lg-row align-items-center"
+                  >
+                    <ul class="navbar-nav  ">
+                      <li class="nav-item active">
+                        <a class="nav-link pl-0" href="{% url 'home' %}"
+                          >Home <span class="sr-only">(current)</span></a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}"> About </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'work' %}">MyWork </a>
+                      </li>
+                        {% if not user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'volunteer-register' %}">Sign Up</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Sign In</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'index' %}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Sign Out</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+    <!-- end header section -->
+  </div>
+  <!-- end hero area -->
+
+  <!-- about section -->
+
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          About
+        </h2>
+      </div>
+      <div class="box layout_padding2-top layout_padding-bottom">
+        <div class="detail-box">
+          <p>
+            The Talent4Good is a web application designed to connect skilled volunteers with non-profit organizations looking for expertise in various areas such as web development, graphic design, marketing, and more. Unlike traditional volunteering platforms that focus on general help, this platform specifically targets volunteers who want to contribute their professional skills to meaningful projects. Organizations can post projects with specific skill requirements, and volunteers can apply based on their expertise, allowing both parties to benefit from a more impactful collaboration.
+          </p>
+        </div>
+        <div class="img-box">
+          <img src="{% static 'images/about-img.jpg' %}" alt="" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+    <!-- info section -->
+    <section class="info_section layout_padding-top layout_padding2-bottom">
+      <div class="container">
+        <div class="social_container">
+          <h2>
+            Follow Us
+          </h2>
+          <div class="social_box">
+            <a href="https://www.facebook.com/md.abdullah.al.ikram.00/">
+              <img src="{% static 'images/fb.png' %}" alt="" />
+            </a>
+            <a href="">
+              <img src="{% static 'images/linkedin.png' %}" alt="" />
+            </a>
+            <a href="">
+              <img src="{% static 'images/youtube.png' %}" alt="" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- end info_section -->
+
+    <!-- footer section -->
+    <section class="container-fluid footer_section">
+      <div class="container">
+        <p>
+          &copy; 2024 All Rights Reserved By
+          <a href="https://abdullah-al-ikram.github.io/abdullahalikram/">Ikran</a>
+        </p>
+      </div>
+    </section>
+    <!-- footer section -->
+  </body>
+</html>

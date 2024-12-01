@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'images/rocket.png' %}" alt="rocket" class="rocket">
+        <div class="text">
+            <h1>Register</h1>
+            <p>As Organization</p>
+        </div>
+        <form  class="form" method="post">
+            {% csrf_token %}
+            <div class="animated-input">
+                <input type="text" name="username" placeholder="Username">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password1" placeholder="Password">
+                <input type="password" name="password2" placeholder="Confirm Password">
+            </div>
+            <button class="btn" type="submit">Register</button>
+        </form>
+        <p class="account"><a href="{% url 'login' %}">Already have account?</a></p>
+         <p class="account">Create Account as <a href="{% url 'volunteer-register' %}"> Volunteer ?</a></p>
+    </div>
+</body>
+</html>
